@@ -4,10 +4,11 @@ public class job_simulator{
 	public static scheduler s1 = new scheduler();
 	public static double current_time = System.currentTimeMillis();//****************tbd****************
 	
+	static int number_of_links = 4; //*************************
+	static int number_of_active_jobs = 0;
+		
 	public static void main(String[] args) {
-		int number_of_active_jobs = 0;
 		Vector temp_vec = new Vector();
-		int number_of_links = 4; //*************************
 		int number_of_classes = 5; //**********************tbd***************************************************
 		g1.initialize_classes(number_of_classes);
 		g1.calculate(current_time, number_of_classes);
@@ -16,7 +17,7 @@ public class job_simulator{
 		int counter =0;
 		int out =0;
 		double rr;
-		int [1][1] R = new int[1][1]; 
+		int [][] R = new int[1][1]; 
 
 		while(current_time<limit){
 			current_time = System.currentTimeMillis();
@@ -34,6 +35,13 @@ public class job_simulator{
 				counter++;
 				number_of_active_jobs = s1.active_job_set.NumberOfMembers();
 				System.out.println(counter+". Time since start is "+(current_time-limit+time_gap)+" milli seconds Total Active Jobs are "+number_of_active_jobs);
+				
+				for(int i = 0; i<number_of_links; i++){
+				    for(int j = 0; j<number_of_active_jobs; j++){
+				        System.out.print(R[i][j]+" ");
+				    }
+				    System.out.println();
+				}
 				
 				if(number_of_active_jobs>0){
 					linkedlist.node temp_printer = s1.active_job_set.list.head;
@@ -100,12 +108,12 @@ public class job_simulator{
 
 		//**************************R matrix update********************************
 
-		int [number_of_links][number_of_active_jobs] R = new int[number_of_links][number_of_active_jobs];
+		int [][] R = new int[number_of_links][number_of_active_jobs];
 		for(int i=0;i<number_of_active_jobs;i++){
 			temp_node = temp_active_set.list.head;
 			while(temp_node!=null){
 				temp_job = (job)temp_node.data;
-				switch(temp_job.class_alloted){
+				switch(temp_job.class_alloted.class_id){
 					case 0: 
 						for(int j=0;j<number_of_links;j++)
 							R[j][i]=1;
@@ -126,8 +134,8 @@ public class job_simulator{
 				temp_node = temp_node.next;
 			}
 		}
-
-
+        System.out.println();
+		
 		return flag; 
 	}
 }

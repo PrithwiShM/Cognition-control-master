@@ -3,15 +3,15 @@ public class generator{
 
 	set job_class_set = new set(); // stores the different classes :: property of the network
 
-	double lambda = 0.001; //*************lambda is number of jobs per mili second
-	double time_frame = 10000; // time interval for the job generation
+	double lambda = 1;//0.001; //*************lambda is number of jobs per mili second
+	double time_frame = 15;//10000; // time interval for the job generation
 	double arr_time;
 	double inter_arr_time;	
 	double p,s;
 	int counter = 0;
 	set job_set = new set();
 
-	int seed = 10000;
+	int seed = 11000;
 	public Random  r_generator = new Random(seed);
 		
 	
@@ -29,14 +29,16 @@ public class generator{
 			counter++;
 			p  = r_generator.nextDouble();                           
 			inter_arr_time = -Math.log(1.0-p)/lambda; // inter arrival time is calculated in a manner so as to gurantee qa poisson's process
+			inter_arr_time = roundAvoid(inter_arr_time,2);
 			arr_time = arr_time+inter_arr_time;
-		
+			arr_time = roundAvoid(arr_time, 2);
 			job x = new job(counter);
 			
 			//*///********to be decided how to calculate this********
 			
 			s = 10*r_generator.nextDouble();  // size of each job
- 
+			s = roundAvoid(s,2);
+ 			
 			//*********                                   ********
 
 			double y = number_of_classes*r_generator.nextDouble();
@@ -50,7 +52,12 @@ public class generator{
 		System.out.println("Total Number of Jobs generated is "+job_set.NumberOfMembers());
 	}
 
-	
+
+	public double roundAvoid(double value, int places) {
+	    double scale = Math.pow(10, places);
+	    return Math.round(value * scale) / scale;
+	}
 
 }
+
 

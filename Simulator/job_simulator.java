@@ -46,7 +46,7 @@ public class job_simulator{
 
 	        String s= null;
 	        
-			if(string_in!=null && number_of_active_jobs){//to avoid calling minizn at the start and when number of jobs is 0
+			if(string_in!=null && (number_of_active_jobs!=0)){//to avoid calling minizn at the start and when number of jobs is 0
 				//System.out.println(string_in);
 			
 		        try {
@@ -162,7 +162,7 @@ public class job_simulator{
 			temp_node = temp_active_set.list.head;
 			int k=0;
 
-			string_in = "echo class = [";
+			string_in = "minizinc --solver couenne model_2basic.mzn -D \"class = [";
 			
 			if(temp_node!=null){
 				temp_job = (job)temp_node.data;	
@@ -217,7 +217,7 @@ public class job_simulator{
 				 	}
 				    string_in = string_in+ R[i][number_of_active_jobs-1]+"|";
 				}
-				string_in = string_in+"];";
+				string_in = string_in+"];\"";
 				
 				try {
 				    FileWriter myWriter = new FileWriter("filename.txt");

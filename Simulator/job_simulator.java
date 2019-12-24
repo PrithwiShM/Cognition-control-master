@@ -157,6 +157,7 @@ public class job_simulator{
 					temp_active_set.Delete(temp_job);
 					temp_finished_set.Insert(temp_job);
 					temp_job.class_alloted.alloted_job.Delete(temp_job);
+					System.out.println("Job "+temp_job.job_id+" is finished");
 					flag =1;
 				}
 				count++;

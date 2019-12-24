@@ -48,7 +48,7 @@ public class job_simulator{
 			temp_vec.setSize(number_of_active_jobs);          
 			
 		
-		/*		// testing with random rates generation 	
+				// testing with random rates generation 	
 		String str ="echo -e [";
 			//System.out.println("Number of active jobs is "+number_of_active_jobs);
 			for(int k=0;k<number_of_active_jobs-1;k++){   
@@ -60,14 +60,14 @@ public class job_simulator{
 			rr = 1*g1.r_generator.nextDouble();   //to be taken from a file
 			str = str+rr+"]\n----------\n==========";
 			if(number_of_active_jobs!=0)temp_vec.setElementAt(rr,number_of_active_jobs-1);
-		*/		
+				
 			String s= null;
 	        
 			if(string_in!=null && (number_of_active_jobs!=0) && out>0){ //to avoid calling minizn at the start and when number of jobs is 0
 				//System.out.println(string_in);
 				try {
 		            
-		            Process p = Runtime.getRuntime().exec(string_in);
+		            Process p = Runtime.getRuntime().exec(str);
 		       		
 		            BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
 

@@ -17,3 +17,4 @@ constraint forall(j in jobset) (x[j] >= 0);
 var float: util= sum(j in jobset)(ln(x[j]));
 
 solve maximize util;
+output ["\(x)"];

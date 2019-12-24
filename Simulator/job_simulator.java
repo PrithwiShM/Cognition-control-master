@@ -96,7 +96,7 @@ public class job_simulator{
 		                	}
 		               		temp_res+=s.charAt(index);
 		               	}
-		               	//temp_vec.setElementAt(Double.parseDouble(temp_res),k);
+		               	temp_vec.setElementAt(Double.parseDouble(temp_res),k);
 		                
 		      				
 		               //	System.out.println(temp_vec);

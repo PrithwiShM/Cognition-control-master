@@ -48,25 +48,26 @@ public class job_simulator{
 			temp_vec.setSize(number_of_active_jobs);          
 			
 		// testing with random rates generation 
-		/*	String str ="echo [";
-			System.out.println("Number of active jobs is "+number_of_active_jobs);
+		/*	String str ="echo -e [";
+			//System.out.println("Number of active jobs is "+number_of_active_jobs);
 			for(int k=0;k<number_of_active_jobs-1;k++){   
 				rr = 1*g1.r_generator.nextDouble();   //to be taken from a file
 				//rr = roundAvoid(rr,2);
-				//temp_vec.setElementAt(rr,k);
+				temp_vec.setElementAt(rr,k);
 				str = str+rr+", ";
 			}
 			rr = 1*g1.r_generator.nextDouble();   //to be taken from a file
-			str = str+rr+"]";
-		*/	
-
-	        String s= null;
+			str = str+rr+"]\n----------\n==========";
+			if(number_of_active_jobs!=0)temp_vec.setElementAt(rr,number_of_active_jobs-1);
+		*/		
+			String s= null;
 	        
 			if(string_in!=null && (number_of_active_jobs!=0)){//to avoid calling minizn at the start and when number of jobs is 0
 				//System.out.println(string_in);
 				try {
 		            
 		            Process p = Runtime.getRuntime().exec(string_in);
+		       		//Process p = Runtime.getRuntime().exec(strin);
 		       
 		            BufferedReader stdInput = new BufferedReader(new 
 		                 InputStreamReader(p.getInputStream()));
@@ -75,24 +76,30 @@ public class job_simulator{
 		                 InputStreamReader(p.getErrorStream()));
 
 		            // read the output from the command
-		        //   System.out.println("Here is the standard output of the command:");
+		            //System.out.println("Here is the standard output of the command:");
 		           
-		      		String temp_res="";  
+		      	    String temp_res="";  
 		      		int k = 0;   
 		            while ((s = stdInput.readLine()) != null) {
+		                //System.out.println(s);
 		                for(int index=1;index<s.length()-1;index++){
 		                	if(s.charAt(index)==','){
 		                		index+=2;
 		                		temp_vec.setElementAt(Double.parseDouble(temp_res),k);
+		                		//System.out.println(temp_res);
 		                		k++;
 		                		temp_res = "";
 		                	}
+		                	if(s.charAt(index)==']'){
+		                		//System.out.println(temp_res);
+		                		break;
+		                	}
 		               		temp_res+=s.charAt(index);
-		               	}temp_vec.setElementAt(Double.parseDouble(temp_res),k);
-		                		
-		               	temp_vec.setElementAt(Double.parseDouble(temp_res),k);
-		                		
-		               	System.out.println(temp_vec);
+		               	}
+		               	//temp_vec.setElementAt(Double.parseDouble(temp_res),k);
+		                
+		      				
+		               //	System.out.println(temp_vec);
 		            }
 		        }
 		        catch (IOException e) {

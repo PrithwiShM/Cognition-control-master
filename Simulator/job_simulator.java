@@ -47,8 +47,9 @@ public class job_simulator{
 			
 			temp_vec.setSize(number_of_active_jobs);          
 			
-		// testing with random rates generation 
-		/*	String str ="echo -e [";
+		
+		/*		// testing with random rates generation 	
+		String str ="echo -e [";
 			//System.out.println("Number of active jobs is "+number_of_active_jobs);
 			for(int k=0;k<number_of_active_jobs-1;k++){   
 				rr = 1*g1.r_generator.nextDouble();   //to be taken from a file
@@ -62,57 +63,49 @@ public class job_simulator{
 		*/		
 			String s= null;
 	        
-			if(string_in!=null && (number_of_active_jobs!=0)){//to avoid calling minizn at the start and when number of jobs is 0
+			if(string_in!=null && (number_of_active_jobs!=0) && out>0){ //to avoid calling minizn at the start and when number of jobs is 0
 				//System.out.println(string_in);
 				try {
 		            
 		            Process p = Runtime.getRuntime().exec(string_in);
-		       		//Process p = Runtime.getRuntime().exec(strin);
-		       
-		            BufferedReader stdInput = new BufferedReader(new 
-		                 InputStreamReader(p.getInputStream()));
+		       		
+		            BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
-		            BufferedReader stdError = new BufferedReader(new 
-		                 InputStreamReader(p.getErrorStream()));
+		            BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
 
-		            // read the output from the command
-		            //System.out.println("Here is the standard output of the command:");
-		           
+		            // read the output from the terminal
+		            
 		      	    String temp_res="";  
-					  int k = 0;
-					  int flag = 0;   
+					int k = 0;   
+		            
 		            if((s = stdInput.readLine()) != null) {
-		                //System.out.println("output is "+s);
 		                for(int index=1;index<s.length()-1;index++){
 		                	if(s.charAt(index)==','){
 		                		index+=2;
 		                		temp_vec.setElementAt(Double.parseDouble(temp_res),k);
-		                		//System.out.println(temp_res);
 		                		k++;
 		                		temp_res = "";
 		                	}
 		                	if(s.charAt(index)==']'){
-								//System.out.println(temp_res);
-								flag = 1;
-		                		break;
+								break;
 							}
 							temp_res+=s.charAt(index);
 		               	}
 						
 						temp_vec.setElementAt(Double.parseDouble(temp_res),k);
-		                
-		      				
-		               	System.out.println("current rates are "+temp_vec);
+		      		
+		               	//System.out.println("current rates are "+temp_vec);
 		            }
 		        }
 		        catch (IOException e) {
-		            System.out.println("exception happened - here's what I know: ");
+		            System.out.println("exception happened in reading the rates output - here's what I know: ");
 		            e.printStackTrace();
 		            System.exit(-1);
 		        }
 			}	    
 
 			out = updater(temp_vec, current_time);
+			
 			if(out>0){
 				counter++;
 				number_of_active_jobs = s1.active_job_set.NumberOfMembers();
@@ -250,17 +243,6 @@ public class job_simulator{
 				    string_in = string_in+ R[i][number_of_active_jobs-1]+"|";
 				}
 				string_in = string_in+"];\"";
-				
-			/*	try {
-				    FileWriter myWriter = new FileWriter("filename.txt");
-				    myWriter.write(string_in);
-				    myWriter.close();
-				} 
-				catch (IOException e) {
-				    System.out.println("An error occurred.");
-				    e.printStackTrace();
-			    }
-			*/
 			}
 		}
 		return flag; 

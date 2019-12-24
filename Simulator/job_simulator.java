@@ -109,7 +109,7 @@ public class job_simulator{
 			if(out>0){
 				counter++;
 				number_of_active_jobs = s1.active_job_set.NumberOfMembers();
-				System.out.println(counter+". Time since start is "+(current_time-limit+time_gap)+" milli seconds Total Active Jobs are "+number_of_active_jobs);
+				System.out.println(counter+". Time since start is "+(current_time-limit+time_gap)+" seconds. Total Active Jobs are "+number_of_active_jobs);
 				
 				
 

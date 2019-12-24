@@ -24,7 +24,17 @@ public class job_simulator{
 		Vector temp_vec = new Vector();
 		int number_of_classes = 5; //**********************tbd***************************************************
 		
-		Capacity(3.0);	
+		Capacity(3.0);
+
+		Scanner input = new Scanner(System.in);
+		System.out.println("Input Seed");
+		int seed = input.nextInt();
+		System.out.println("Input Number of jobs per second");
+		int lambda=input.nextInt();
+		//int time_frame=input.nextInt();
+		input.close();
+
+		g1.initialize_generator(seed, lambda);		
 
 		g1.initialize_classes(number_of_classes);
 		g1.calculate(current_time, number_of_classes);
@@ -109,7 +119,7 @@ public class job_simulator{
 			if(out>0){
 				counter++;
 				number_of_active_jobs = s1.active_job_set.NumberOfMembers();
-				System.out.println(counter+". Time since start is "+(current_time-limit+time_gap)+" milli seconds Total Active Jobs are "+number_of_active_jobs);
+				System.out.println(counter+". Time since start is "+(current_time-limit+time_gap)+" seconds. Total Active Jobs are "+number_of_active_jobs);
 				
 				
 

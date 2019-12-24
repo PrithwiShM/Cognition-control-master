@@ -12,6 +12,12 @@ public class generator{
 	set job_set = new set();
 
 	int seed = 11000;
+
+	public void initialize_generator(int s, int lam){
+		this.seed = s;
+		this.lambda = lam;
+	}
+
 	public Random  r_generator = new Random(seed);
 		
 	

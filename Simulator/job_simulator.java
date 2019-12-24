@@ -36,6 +36,10 @@ public class job_simulator{
 		double rr; //****temp variable for rate of a job*************************
 		int [][] R = new int[1][1]; 
 
+			
+
+
+
 		while(current_time<limit){
 			current_time++;// = System.currentTimeMillis();
 			
@@ -43,15 +47,27 @@ public class job_simulator{
 			
 			temp_vec.setSize(number_of_active_jobs);          
 			
+		// testing with random rates generation 
+		/*	String str ="echo [";
+			System.out.println("Number of active jobs is "+number_of_active_jobs);
+			for(int k=0;k<number_of_active_jobs-1;k++){   
+				rr = 1*g1.r_generator.nextDouble();   //to be taken from a file
+				//rr = roundAvoid(rr,2);
+				//temp_vec.setElementAt(rr,k);
+				str = str+rr+", ";
+			}
+			rr = 1*g1.r_generator.nextDouble();   //to be taken from a file
+			str = str+rr+"]";
+		*/	
 
 	        String s= null;
 	        
 			if(string_in!=null && (number_of_active_jobs!=0)){//to avoid calling minizn at the start and when number of jobs is 0
 				//System.out.println(string_in);
-			
-		        try {
-		            Process p = Runtime.getRuntime().exec(string_in);
+				try {
 		            
+		            Process p = Runtime.getRuntime().exec(string_in);
+		       
 		            BufferedReader stdInput = new BufferedReader(new 
 		                 InputStreamReader(p.getInputStream()));
 
@@ -59,9 +75,24 @@ public class job_simulator{
 		                 InputStreamReader(p.getErrorStream()));
 
 		            // read the output from the command
-		            System.out.println("Here is the standard output of the command:\n");
+		        //   System.out.println("Here is the standard output of the command:");
+		           
+		      		String temp_res="";  
+		      		int k = 0;   
 		            while ((s = stdInput.readLine()) != null) {
-		                System.out.println(s);
+		                for(int index=1;index<s.length()-1;index++){
+		                	if(s.charAt(index)==','){
+		                		index+=2;
+		                		temp_vec.setElementAt(Double.parseDouble(temp_res),k);
+		                		k++;
+		                		temp_res = "";
+		                	}
+		               		temp_res+=s.charAt(index);
+		               	}temp_vec.setElementAt(Double.parseDouble(temp_res),k);
+		                		
+		               	temp_vec.setElementAt(Double.parseDouble(temp_res),k);
+		                		
+		               	System.out.println(temp_vec);
 		            }
 		        }
 		        catch (IOException e) {
@@ -71,15 +102,6 @@ public class job_simulator{
 		        }
 			}	    
 
-
-
-
-			for(int k=0;k<number_of_active_jobs;k++){   
-				rr = 1*g1.r_generator.nextDouble();   //to be taken from a file
-				rr = roundAvoid(rr,2);
-				temp_vec.setElementAt(0.0,k);
-			}	
-			
 			out = updater(temp_vec, current_time);
 			if(out>0){
 				counter++;
@@ -104,7 +126,7 @@ public class job_simulator{
 			}
 		}
 
-		System.out.println("No. of Jobs Finished is "+s1.finished_job_set.NumberOfMembers()+" No. of Remaining Jobs is "+(g1.job_set.NumberOfMembers()+s1.active_job_set.NumberOfMembers())+" Jobs in the system right now "+s1.active_job_set.NumberOfMembers());
+		System.out.println("No. of Jobs Finished is "+s1.finished_job_set.NumberOfMembers()+" No. of Remaining Jobs is "+(g1.job_set.NumberOfMembers()+s1.active_job_set.NumberOfMembers())+" out of which "+s1.active_job_set.NumberOfMembers()+" jobs are in system right now");
 	}
 
 	public static int updater(Vector<Double> curr_rates, double current_time){
@@ -126,7 +148,7 @@ public class job_simulator{
 				temp_node = temp_node.next;
 				temp_rate = curr_rates.get(count);
 				new_rem_size = temp_job.rem_size-temp_rate*(current_time-temp_job.last_updated);
-				new_rem_size = roundAvoid(new_rem_size,2);
+				//new_rem_size = roundAvoid(new_rem_size,2);
 				temp_job.update_job(new_rem_size,(new_rem_size>0),curr_rates.get(count),current_time); //updated the job
 				if(new_rem_size<=0){
 					temp_active_set.Delete(temp_job);
@@ -219,7 +241,7 @@ public class job_simulator{
 				}
 				string_in = string_in+"];\"";
 				
-				try {
+			/*	try {
 				    FileWriter myWriter = new FileWriter("filename.txt");
 				    myWriter.write(string_in);
 				    myWriter.close();
@@ -228,7 +250,7 @@ public class job_simulator{
 				    System.out.println("An error occurred.");
 				    e.printStackTrace();
 			    }
-
+			*/
 			}
 		}
 		return flag; 

@@ -29,7 +29,7 @@ public class generator{
 			counter++;
 			p  = r_generator.nextDouble();                           
 			inter_arr_time = -Math.log(1.0-p)/lambda; // inter arrival time is calculated in a manner so as to gurantee qa poisson's process
-			inter_arr_time = roundAvoid(inter_arr_time,2);
+			//inter_arr_time = roundAvoid(inter_arr_time,2);
 			arr_time = arr_time+inter_arr_time;
 			arr_time = roundAvoid(arr_time, 2);
 			job x = new job(counter);
@@ -37,7 +37,7 @@ public class generator{
 			//*///********to be decided how to calculate this********
 			
 			s = 10*r_generator.nextDouble();  // size of each job
-			s = roundAvoid(s,2);
+			//s = roundAvoid(s,2);
  			
 			//*********                                   ********
 

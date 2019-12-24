@@ -79,9 +79,10 @@ public class job_simulator{
 		            //System.out.println("Here is the standard output of the command:");
 		           
 		      	    String temp_res="";  
-		      		int k = 0;   
-		            while ((s = stdInput.readLine()) != null) {
-		                //System.out.println(s);
+					  int k = 0;
+					  int flag = 0;   
+		            if((s = stdInput.readLine()) != null) {
+		                //System.out.println("output is "+s);
 		                for(int index=1;index<s.length()-1;index++){
 		                	if(s.charAt(index)==','){
 		                		index+=2;
@@ -91,15 +92,17 @@ public class job_simulator{
 		                		temp_res = "";
 		                	}
 		                	if(s.charAt(index)==']'){
-		                		//System.out.println(temp_res);
+								//System.out.println(temp_res);
+								flag = 1;
 		                		break;
-		                	}
-		               		temp_res+=s.charAt(index);
+							}
+							temp_res+=s.charAt(index);
 		               	}
-		               	temp_vec.setElementAt(Double.parseDouble(temp_res),k);
+						
+						temp_vec.setElementAt(Double.parseDouble(temp_res),k);
 		                
 		      				
-		               //	System.out.println(temp_vec);
+		               	System.out.println("current rates are "+temp_vec);
 		            }
 		        }
 		        catch (IOException e) {
@@ -191,7 +194,7 @@ public class job_simulator{
 			temp_node = temp_active_set.list.head;
 			int k=0;
 
-			string_in = "minizinc --solver couenne model_2basic.mzn -D \"class = [";
+			string_in = "minizinc --solver ipopt model_2basic.mzn -D \"class = [";
 			
 			if(temp_node!=null){
 				temp_job = (job)temp_node.data;	

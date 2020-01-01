@@ -5,7 +5,7 @@ import java.io.*;
 
 public class job_simulator{
 	public static generator g1 = new generator();
-	public static scheduler s1 = new scheduler();
+	public static handler s1 = new handler();
 	public static double current_time = 0;//System.currentTimeMillis();//****************tbd****************
 	public static String string_in = null;
 			

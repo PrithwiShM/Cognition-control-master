@@ -1,5 +1,5 @@
 import java.util.*;
-public class scheduler{
+public class handler{
 	set active_job_set = new set(); // storesthe jobs which are in the system 
 	set finished_job_set = new set(); // stores the jobs which are already completed
 
